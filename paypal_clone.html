@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PayPal Clone</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      color: #222;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      min-height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      box-sizing: border-box;
+      font-size: 20px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .button {
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    .button-primary {
+      background-color: #0070ba;
+      color: white;
+    }
+    .button-disabled {
+      background-color: #ccc;
+      color: white;
+      cursor: not-allowed;
+    }
+    .link {
+      color: #0070ba;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    /* Отступ под заголовком More options */
+    .more-options-title {
+      font-weight: bold;
+      color: #000;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+    .more-options {
+      margin-top: 30px;
+    }
+    .option {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      color: #000;
+    }
+    .option i {
+      font-size: 16px;
+      color: #000;
+      width: 18px;
+      text-align: center;
+      margin-right: 10px;
+    }
+    .center {
+      text-align: center;
+    }
+    .avatar {
+      width: 60px;
+      height: 60px;
+      background: #0070ba;
+      color: white;
+      border-radius: 50%;
+      font-size: 32px;
+      line-height: 60px;
+      margin: 10px auto;
+      user-select: none;
+    }
+    .amount-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: bold;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 20px auto;
+      width: 300px;
+    }
+    .sending {
+      background-color: #0070ba;
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .terms {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 20px;
+    }
+    .back {
+      font-size: 24px;
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 10px;
+    }
+    /* Main Screen styles */
+    #mainScreen .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    #mainScreen .logo {
+      height: 26px;
+    }
+    #mainScreen .profile {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: url('https://cs14.pikabu.ru/post_img/2023/04/20/1/1681943607155291137.jpg') center/cover no-repeat;
+    }
+    #mainScreen .balance-box {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    #mainScreen .balance-box h3 {
+      font-size: 14px;
+      margin: 0;
+      color: #555;
+      font-weight: normal;
+    }
+    #mainScreen .balance-amount {
+      font-size: 26px;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+    #mainScreen .buttons {
+      display: flex;
+      gap: 10px;
+    }
+    #mainScreen .buttons button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    #mainScreen .send {
+      background: #005EA6;
+      color: #fff;
+      border: none;
+    }
+    #mainScreen .request {
+      background: #fff;
+      color: #333;
+    }
+    #mainScreen .section-title {
+      font-size: 14px;
+      color: #000;
+      margin: 16px 0 6px 0;
+      font-weight: bold;
+    }
+    #mainScreen .quick-actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    #mainScreen .quick-actions .action {
+      flex: 1;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    #mainScreen .quick-actions i {
+      font-size: 18px;
+      color: #555;
+    }
+    #mainScreen .recent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #000;
+      font-size: 14px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    #mainScreen .recent-header span:last-child {
+      color: #005EA6;
+      cursor: pointer;
+      font-weight: normal;
+    }
+    #mainScreen .transaction {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+    }
+    #mainScreen .transaction .user-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #mainScreen .transaction i {
+      font-size: 16px;
+      color: #005EA6;
+    }
+    #mainScreen .transaction .details {
+      display: flex;
+      flex-direction: column;
+    }
+    #mainScreen .transaction .details .name {
+      font-weight: 500;
+    }
+    #mainScreen .transaction .details .date {
+      font-size: 12px;
+      color: #777;
+    }
+    #mainScreen .transaction .amount {
+      font-weight: bold;
+      color: #C0392B;
+      font-size: 14px;
+    }
+
+    /* Убираем стрелки в input number */
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+</head>
+<body>
+  <!-- Main Screen -->
+  <div class="container" id="mainScreen">
+    <div class="header">
+      <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg" class="logo" alt="PayPal">
+      <div class="profile"></div>
+    </div>
+    <div class="balance-box">
+      <h3>PayPal balance</h3>
+      <div class="balance-amount" id="balanceAmount">€16,088,976.00</div>
+      <div class="buttons">
+        <button class="send" id="sendButton">Send</button>
+        <button class="request">Request</button>
+      </div>
+    </div>
+    <div class="section-title">Quick actions</div>
+    <div class="quick-actions">
+      <div class="action">
+        <i class="fa-solid fa-store"></i>
+        <div>Pay in store</div>
+      </div>
+      <div class="action">
+        <i class="fa-solid fa-arrow-right"></i>
+        <div>Transfer to bank</div>
+      </div>
+    </div>
+    <div class="recent-header">
+      <span>Recent activity</span>
+      <span id="clearAll" style="color:#005EA6; cursor:pointer; font-weight: normal;">Clear All</span>
+    </div>
+    <div id="recentActivityContainer">
+      <div class="transaction">
+        <div class="user-info">
+          <i class="fa-solid fa-store"></i>
+          <div class="details">
+            <div class="name">@shytam10</div>
+            <div class="date">03/08/2025</div>
+          </div>
+        </div>
+        <div class="amount">€200.00</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Send Money Screen -->
+  <div class="container" id="sendScreen" style="display:none;">
+    <div class="back" id="backToMain">&#8592; Back</div>
+    <h2>Send Money</h2>
+    <input type="text" id="username" placeholder="Name, email, mobile" />
+    <button class="button button-primary" id="nextButton">Next</button>
+    <a href="#" class="link">Show all contacts</a>
+    <div class="more-options">
+      <div class="more-options-title">More options</div>
+      <div class="option"><i class="fa-solid fa-users"></i> Pool money</div>
+      <div class="option"><i class="fa-solid fa-arrows-split-up-and-left"></i> Split a bill</div>
+      <div class="option"><i class="fa-solid fa-gift"></i> Send a digital gift card</div>
+    </div>
+  </div>
+
+  <!-- Enter Amount Screen -->
+  <div class="container" id="amountScreen" style="display:none;">
+    <div class="back" id="backToSend">&#8592; Back</div>
+    <h2>Send Money</h2>
+    <div class="center">
+      <div class="avatar" id="avatar">@U</div>
+      <div id="recipient" style="font-size:18px; margin:10px 0;">@user</div>
+      <div class="amount-box" style="display: flex; align-items: center; justify-content: center; border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin: 20px auto; width: 300px; font-size: 28px; font-weight: bold;">
+        <input type="number" id="amount" placeholder="0.00" step="0.01" min="0" style="border: none; width: 100px; font-size: 28px; font-weight: bold; text-align: center; outline: none; -moz-appearance: textfield;" />
+        <span style="margin-left: 8px;">EUR</span>
+      </div>
+      <button class="button button-primary" id="sendAmountButton">Send</button>
+      <div id="sending" class="sending" style="display:none;">Sending...</div>
+      <a href="#" class="link">Terms and Conditions</a>
+      <div class="terms">By sending money, you agree to PayPal's user agreement and privacy policy.</div>
+    </div>
+  </div>
+
+  <script>
+    const mainScreen = document.getElementById('mainScreen');
+    const sendScreen = document.getElementById('sendScreen');
+    const amountScreen = document.getElementById('amountScreen');
+
+    const sendButtonMain = document.getElementById('sendButton');
+    const backToMain = document.getElementById('backToMain');
+    const backToSend = document.getElementById('backToSend');
+
+    const nextButton = document.getElementById('nextButton');
+    const usernameInput = document.getElementById('username');
+
+    const recipient = document.getElementById('recipient');
+    const avatar = document.getElementById('avatar');
+
+    const amountInput = document.getElementById('amount');
+    const sendAmountButton = document.getElementById('sendAmountButton');
+    const sendingDiv = document.getElementById('sending');
+
+    const recentActivityContainer = document.getElementById('recentActivityContainer');
+    const balanceAmount = document.getElementById('balanceAmount');
+    const clearAll = document.getElementById('clearAll');
+
+    let balance = 16088976.00;
+
+    // Show send screen from main
+    sendButtonMain.addEventListener('click', () => {
+      mainScreen.style.display = 'none';
+      sendScreen.style.display = 'block';
+      usernameInput.value = '';
+    });
+
+    // Back from send screen to main
+    backToMain.addEventListener('click', () => {
+      sendScreen.style.display = 'none';
+      mainScreen.style.display = 'block';
+    });
+
+    // Next from send screen to amount screen
+    nextButton.addEventListener('click', () => {
+      const username = usernameInput.value.trim();
+      if (!username) {
+        alert('Please enter a username');
+        return;
+      }
+      recipient.textContent = '@' + username;
+      avatar.textContent = '@' + username[0].toUpperCase();
+      sendScreen.style.display = 'none';
+      amountScreen.style.display = 'block';
+      amountInput.value = '';
+      sendingDiv.style.display = 'none';
+      sendAmountButton.style.display = 'inline-block';
+    });
+
+    // Back from amount screen to send screen
+    backToSend.addEventListener('click', () => {
+      amountScreen.style.display = 'none';
+      sendScreen.style.display = 'block';
+      sendingDiv.style.display = 'none';
+      sendAmountButton.style.display = 'inline-block';
+    });
+
+    // Send amount and update balance + recent activity
+    sendAmountButton.addEventListener('click', () => {
+      const amount = parseFloat(amountInput.value);
+      if (isNaN(amount) || amount <= 0) {
+        alert('Please enter a valid amount');
+        return;
+      }
+      if (amount > balance) {
+        alert('Insufficient balance');
+        return;
+      }
+
+      sendAmountButton.style.display = 'none';
+      sendingDiv.style.display = 'block';
+
+      setTimeout(() => {
+        // Обновляем баланс
+        balance -= amount;
+        balanceAmount.textContent = '€' + balance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+        // Добавляем транзакцию в Recent activity с иконкой магазина
+        const newTransaction = document.createElement('div');
+        newTransaction.className = 'transaction';
+        newTransaction.innerHTML = `
+          <div class="user-info">
+            <i class="fa-solid fa-store"></i>
+            <div class="details">
+              <div class="name">${recipient.textContent}</div>
+              <div class="date">${new Date().toLocaleDateString()}</div>
+            </div>
+          </div>
+          <div class="amount">€${amount.toFixed(2)}</div>
+        `;
+        recentActivityContainer.prepend(newTransaction);
+
+        // Возвращаемся на главный экран
+        amountScreen.style.display = 'none';
+        mainScreen.style.display = 'block';
+
+        // Сброс значений для следующей операции
+        usernameInput.value = '';
+        amountInput.value = '';
+        sendingDiv.style.display = 'none';
+        sendAmountButton.style.display = 'inline-block';
+
+      }, 2000);
+    });
+
+    // Очистить все транзакции
+    clearAll.addEventListener('click', () => {
+      recentActivityContainer.innerHTML = '';
+    });
+  </script>
+</body>
+</html>
